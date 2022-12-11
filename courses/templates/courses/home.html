@@ -1,0 +1,21 @@
+{% extends 'courses/main-layout.html' %}
+{% block main_section %}
+
+    <div class="courses">
+    {% for course in courses %}
+        <div class="course">
+            <h3>{{ course.title }}</h3>
+
+            {% if course.img %}
+            <img src="{{ course.img.url }}" alt="{{ course.title }}">
+            {% else %}
+            <img src="/pictures/default.png" alt="{{ course.title }}">
+            {% endif %}
+
+            <a href="{{ course.get_absolute_url }}" class="btn btn-warning mt-3">Посмотреть</a>
+        </div>
+
+    {% endfor %}
+    </div>
+
+{% endblock %}

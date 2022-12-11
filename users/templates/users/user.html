@@ -1,0 +1,16 @@
+{% extends 'courses/main-layout.html' %}
+{% load crispy_forms_tags %}
+{% block main_section %}
+<div class="container mt-5">
+  <div class="form-section">
+    <h2>Авторизация на сайте</h2>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-outline-warning">Войти</button>
+    </form>
+    <hr>
+    Забыли пароль? <a href="{% url 'pass-reset' %}">Получите новый</a>
+  </div>
+</div>
+{% endblock main_section %}

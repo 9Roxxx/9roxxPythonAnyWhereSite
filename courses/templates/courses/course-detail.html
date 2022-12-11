@@ -1,0 +1,42 @@
+{% extends 'courses/main-layout.html' %}
+{% block main_section %}
+
+    <div class="main-block">
+        <div class="one-course">
+            <h3>{{ object.title }}</h3>
+
+            {% if object.img %}
+            <img src="{{ object.img.url }}" alt="{{ object.title }}">
+            {% else %}
+            <img src="/pictures/default.png" alt="{{ object.title }}">
+            {% endif %}
+        </div>
+
+        <div class="aside-course">
+            <h3>Описание курса</h3>
+            <p>{{ object.description }}</p>
+            {% if object.free == True %}
+                <ul>
+                {% for lesson in lessons %}
+                    <li><a href="{{ lesson.get_absolute_url }}">{{ lesson.title }}</a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                {% if user.is_authenticated == False %}
+                    <p><a href="{% url 'reg' %}">Зарегистрируйтесь</a> на сайте и купите подписку, чтобы просмотреть этот курс</p>
+                {% else %}
+                    {% if user.profile.account_type == "Полный пакет" %}
+                        <ul>
+                        {% for lesson in lessons %}
+                            <li><a href="{{ lesson.get_absolute_url }}">{{ lesson.title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Необходимо купить <a href="{% url 'tarrifs' %}">подписку</a> на сайте, чтобы просмотреть этот курс</p>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
